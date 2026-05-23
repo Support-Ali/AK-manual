@@ -16,7 +16,7 @@
   .progress-bar-wrap{flex:1;max-width:240px;background:var(--border);border-radius:99px;height:6px;overflow:hidden}
   .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease;width:0%}
   .progress-label{font-size:12px;color:var(--muted);white-space:nowrap}
-  .nav{background:var(--surface);border-bottom:1px solid var(--border)}
+  .nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:66px;z-index:99}
   .nav-inner{max-width:960px;margin:0 auto;display:flex;padding:0 40px;overflow-x:auto;scrollbar-width:none}
   .nav-inner::-webkit-scrollbar{display:none}
   .nav-tab{padding:14px 22px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;background:none;border-left:none;border-right:none;border-top:none;font-family:inherit}
@@ -99,6 +99,7 @@
     <button class="nav-tab active" onclick="showSection('s1',this)">📋 Реквизиты</button>
     <button class="nav-tab" onclick="showSection('s2',this)">📱 SMS Forwarder</button>
     <button class="nav-tab" onclick="showSection('s3',this)">💬 Telegram</button>
+    <button class="nav-tab" onclick="showSection('s4',this)">🔍 Логи и отладка</button>
   </div>
 </nav>
 <main class="main">
@@ -381,6 +382,47 @@
   </div>
 </div>
 
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <div class="section-title">Логи и отладка реквизитов</div>
+  <div class="section-subtitle">Инструменты для диагностики распределения реквизитов — помогают понять, почему реквизит выдаётся или не выдаётся на ордер.</div>
+
+  <div class="steps">
+
+    <div class="step" id="step-s4-1">
+      <div class="step-header" onclick="toggleStep('step-s4-1')">
+        <div class="step-num"><span class="step-num-text">1</span><span class="step-num-done">✓</span></div>
+        <div class="step-title">Кэш распределения реквизитов</div>
+        <span class="step-arrow">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Таблица, куда система заранее складывает «потенциально доступные» реквизиты для выдачи на pay-in ордера.</p>
+        <p>Нужна для того, чтобы при создании ордера не искать каждый раз по всем трейдерам, группам, реквизитам, лимитам, валютам и trade methods. Вместо этого система сначала смотрит в уже подготовленный список кандидатов.</p>
+        <div class="callout info"><span class="callout-icon">🔄</span>Кэш обновляется каждые <strong>30 секунд</strong>.</div>
+        <p>Прямая ссылка:</p>
+        <div class="code-block"><a href="https://trendykassa.io/admin/distribution" target="_blank" style="color:#38bdf8;text-decoration:none;flex:1;word-break:break-all">https://trendykassa.io/admin/distribution</a><button class="copy-btn" onclick="copyText('https://trendykassa.io/admin/distribution',this)">Скопировать</button></div>
+        <button class="mark-done-btn" onclick="markDone('step-s4-1')">✓ Понятно</button>
+      </div>
+    </div>
+
+    <div class="step" id="step-s4-2">
+      <div class="step-header" onclick="toggleStep('step-s4-2')">
+        <div class="step-num"><span class="step-num-text">2</span><span class="step-num-done">✓</span></div>
+        <div class="step-title">Отладка распределения реквизитов</div>
+        <span class="step-arrow">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Debug-механизм, который сохраняет и логирует snapshot того, какие реквизиты были в кэше распределения для магазина в момент подбора, и почему каждый из них прошёл или не прошёл проверки под конкретный ордер.</p>
+        <div class="callout info"><span class="callout-icon">🔍</span>Используйте этот инструмент, если нужно разобраться, по какой причине конкретный реквизит не был выдан на ордер.</div>
+        <p>Прямая ссылка:</p>
+        <div class="code-block"><a href="https://trendykassa.io/admin/distribution-debug" target="_blank" style="color:#38bdf8;text-decoration:none;flex:1;word-break:break-all">https://trendykassa.io/admin/distribution-debug</a><button class="copy-btn" onclick="copyText('https://trendykassa.io/admin/distribution-debug',this)">Скопировать</button></div>
+        <button class="mark-done-btn" onclick="markDone('step-s4-2')">✓ Понятно</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </main>
 <script>
   const totalSteps=document.querySelectorAll('.step').length;
